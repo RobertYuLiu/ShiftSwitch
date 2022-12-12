@@ -16,16 +16,18 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Controller
+@RestController
 @CrossOrigin("http://localhost:4200")
 public class FileUploadController {
 
     @Autowired
     private FilesStoreService storageService;
-    @GetMapping(value="/ass", produces="application/json")
+
+    @GetMapping(value="/test", produces="application/json")
     public String hello() {
-        return "hello ass....";
+        return "hello test....";
     }
+
     @PostMapping("/upload")
     public ResponseEntity<Response> uploadFile(@RequestParam("file") MultipartFile file) {
         String message = "";
