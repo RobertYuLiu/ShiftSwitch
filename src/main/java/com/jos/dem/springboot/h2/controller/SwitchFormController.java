@@ -40,12 +40,12 @@ public class SwitchFormController {
 	private SwitchFormService switchFormService;
 
 	@GetMapping("/switchForm")
-	public ResponseEntity<?> testFillable(@RequestBody SwitchForm switchForm) throws FileNotFoundException, JsonProcessingException {
+	public ResponseEntity<?> generateSwitchForm(@RequestBody SwitchForm switchForm) throws FileNotFoundException, JsonProcessingException {
 		ObjectMapper mapper = new ObjectMapper();
 
 		// Java object to JSON string
 		String jsonString = mapper.writeValueAsString(new SwitchForm());
-		System.out.println("switch form json generated: " + jsonString);
+//		System.out.println("switch form json generated: " + jsonString);
 
 		try {
 			switchFormService.manipulateSamplePdf(switchForm);
@@ -57,8 +57,11 @@ public class SwitchFormController {
 		File newFile = new File(DEST);
 		InputStreamResource resource = new InputStreamResource(new FileInputStream(newFile));
 		System.out.println("sending response file ...");
-		return ResponseEntity.status(HttpStatus.OK)
-				.contentLength(newFile.length()).contentType(MediaType.APPLICATION_PDF).body(resource);
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.contentLength(newFile.length())
+				.contentType(MediaType.APPLICATION_PDF)
+				.body(resource);
 	}
 
 	@PostMapping("/fillable1")

@@ -6,8 +6,9 @@ public final class SwitchFormFields {
         // set as private to hide as there is no need to instantiate this class
     }
 
-    public static final String SRC = "/Users/emilydeng/Downloads/switchForm.pdf";
-    public static final String DEST = "/Users/emilydeng/Downloads/switchFormToPrint.pdf";
+    public static final String SRC = "switchFormTemplate.pdf";
+//    public static final String DEST = "/Users/emilydeng/Downloads/switchFormToPrint.pdf";
+    public static final String DEST = "switchFormGenerated.pdf";
 
     public static final String IS_DEALER = "isDealer";
 
