@@ -33,3 +33,13 @@ In this tutorial, you will learn everything you need to know to connect and conf
 [comment]: <> (save to the database?)
 
 [comment]: <> (add schedule process in addition to switch process?)
+
+#TODO
+
+[comment]: <> (update: use CorsConfigurationSource bean instead of below)
+[comment]: <> (1. add the global config to handle the cross-origin in one place)
+
+[comment]: <> (...implements webmvcConfigurer... Dan Vega's tutorial)
+
+[comment]: <> (try this:)
+[comment]: <> (https://github.com/Java-Techie-jt/spring-boot3-jwt)

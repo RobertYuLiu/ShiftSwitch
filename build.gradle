@@ -14,9 +14,19 @@ repositories {
 }
 
 dependencies {
+  // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security
+//  implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '3.0.1'
+
+  implementation "mysql:mysql-connector-java:8.0.11"
   implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
   implementation 'org.springframework.boot:spring-boot-starter-web'
+
+  // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-oauth2-resource-server
+//  implementation group: 'org.springframework.boot', name: 'spring-boot-starter-oauth2-resource-server', version: '3.0.0'
+
   implementation 'org.springframework.boot:spring-boot-starter-webflux'
+  implementation 'junit:junit:4.13.1'
+  implementation 'org.junit.jupiter:junit-jupiter:5.7.0'
   runtimeOnly 'com.h2database:h2'
   compileOnly('org.projectlombok:lombok')
   annotationProcessor('org.projectlombok:lombok')
@@ -26,6 +36,12 @@ dependencies {
   implementation group: 'org.apache.pdfbox', name: 'pdfbox', version: '2.0.27'
   // https://mvnrepository.com/artifact/com.itextpdf/itextpdf
   implementation group: 'com.itextpdf', name: 'itextpdf', version: '5.5.12'
+//....together with the oauth2 from dan vega
+//  compile "org.springframework.boot:spring-boot-configuration-processor"
 
-
+}
+//important to add below. Otherwise show 'no test found' error 2023-1-18
+//https://stackoverflow.com/questions/30474767/no-tests-found-for-given-includes-error-when-running-parameterized-unit-test-in
+test {
+  useJUnitPlatform()
 }

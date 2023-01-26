@@ -1,52 +1,56 @@
 package com.jos.dem.springboot.h2.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Data
+@Getter
+@Setter
 public class SwitchForm {
 
-    private boolean isDealer;
+    private boolean dealer;
 
-    private boolean isDayDaySwitch;
-    private boolean isGiveAwayPickUp;
-    private boolean isTimeSwitch;
-    private boolean isPitSwitch;
+    private boolean dayDaySwitch;
+    private boolean giveAwayPickUp;
+    private boolean timeSwitch;
+    private boolean pitSwitch;
 
     private String firstLastNameA1;
     private int badgeIdA1;
-    private boolean isFullTimeA1;
-    private boolean isFullTimeUtilA1;
-    private boolean isPartTimeA1;
+    private boolean fullTimeA1;
+    private boolean fullTimeUtilA1;
+    private boolean partTimeA1;
 
     private String firstLastNameA2;
     private int badgeIdA2;
-    private boolean isFullTimeA2;
-    private boolean isFullTimeUtilA2;
-    private boolean isPartTimeA2;
+    private boolean fullTimeA2;
+    private boolean fullTimeUtilA2;
+    private boolean partTimeA2;
 
     private String dayOfWeekA;
     private String monthDateA;
     private String shiftStartEndTimeA;
-    private boolean isPokerRoomA;
-    private boolean is6AmCrabsA;
+    private boolean pokerRoomA;
+    private boolean sixAmCrabsA;
 
     private String firstLastNameB1;
     private int badgeIdB1;
-    private boolean isFullTimeB1;
-    private boolean isFullTimeUtilB1;
-    private boolean isPartTimeB1;
+    private boolean fullTimeB1;
+    private boolean fullTimeUtilB1;
+    private boolean partTimeB1;
 
     private String firstLastNameB2;
     private int badgeIdB2;
-    private boolean isFullTimeB2;
-    private boolean isFullTimeUtilB2;
-    private boolean isPartTimeB2;
+    private boolean fullTimeB2;
+    private boolean fullTimeUtilB2;
+    private boolean partTimeB2;
 
     private String dayOfWeekB;
     private String monthDateB;
     private String shiftStartEndTimeB;
-    private boolean isPokerRoomB;
-    private boolean is6AmCrabsB;
+    private boolean pokerRoomB;
+    private boolean sixAmCrabsB;
 
     private String phoneNumA1;
     private String phoneNumA2;

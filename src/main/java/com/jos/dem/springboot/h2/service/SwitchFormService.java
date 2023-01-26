@@ -5,7 +5,10 @@ import com.itextpdf.text.pdf.AcroFields;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfStamper;
 import com.jos.dem.springboot.h2.model.SwitchForm;
-import org.hibernate.type.YesNoType;
+import com.jos.dem.springboot.h2.model.SwitchRecord;
+import com.jos.dem.springboot.h2.model.SwitchRecordFrom;
+import com.jos.dem.springboot.h2.repository.SwitchRecordRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.FileOutputStream;
@@ -17,20 +20,26 @@ import static com.jos.dem.springboot.h2.util.SwitchFormFields.*;
 @Service
 public class SwitchFormService {
 
+    //to be used for saving the submitted switch record for tracking
+    @Autowired
+    private SwitchRecordRepository switchRecordRepository;
 
     public static final String YES = "Yes";//must be uppercase Y due to field setting
     public static final String NO = "No";
 
-    public void manipulateSamplePdf(SwitchForm formData) throws DocumentException, IOException {
+    public SwitchRecord generateShiftSwitchFormWithInputData(SwitchForm formData) throws DocumentException, IOException {
         PdfReader reader = new PdfReader(SRC);
         PdfStamper stamper = new PdfStamper(reader, new FileOutputStream(DEST));
         AcroFields form = stamper.getAcroFields();//debug this form can know all the field names
-        updateFormFields(form, formData);
+        SwitchRecord newSwitchRecordForTracking = updateFormFields(form, formData);
         stamper.setFormFlattening(true);
         stamper.close();
+        return newSwitchRecordForTracking;
     }
 
-    private void updateFormFields(AcroFields form, SwitchForm formData) throws DocumentException, IOException {
+    private SwitchRecord updateFormFields(AcroFields form, SwitchForm formData) throws DocumentException, IOException {
+        SwitchRecord switchRecordForTracking = new SwitchRecord();
+        switchRecordForTracking.setSwitchRecordFrom("Switch form submission");
         Set<String> fields = form.getFields().keySet();
         fields.stream().forEach((temp) -> {
 //            System.out.println("form.setField(" + temp);
@@ -44,16 +53,20 @@ public class SwitchFormService {
         form.setField(IS_PIT_SWITCH, formData.isPitSwitch() ? YES : NO, formData.isPitSwitch() ? YES : NO);
 
         form.setField(FIRST_LAST_NAME_A1, formData.getFirstLastNameA1(), formData.getFirstLastNameA1());
-        String badgeA1 = String.valueOf(formData.getBadgeIdA1());
+        int badgeIdA1 = formData.getBadgeIdA1();
+        String badgeA1 = String.valueOf(badgeIdA1);
         form.setField(BADGE_ID_A1, badgeA1, badgeA1);
+        switchRecordForTracking.setEmployee1(badgeIdA1 + "");
 
         form.setField(IS_FULL_TIME_A1, formData.isFullTimeA1() ? YES : NO, formData.isFullTimeA1() ? YES : NO);
         form.setField(IS_FULL_TIME_UTIL_A1, formData.isFullTimeUtilA1() ? YES : NO, formData.isFullTimeUtilA1() ? YES : NO);
         form.setField(IS_PART_TIME_A1, formData.isPartTimeA1() ? YES : NO, formData.isPartTimeA1() ? YES : NO);
 
         form.setField(FIRST_LAST_NAME_A2, formData.getFirstLastNameA2(), formData.getFirstLastNameA2());
-        String badgeA2 = String.valueOf(formData.getBadgeIdA2());
+        int badgeIdA2 = formData.getBadgeIdA2();
+        String badgeA2 = String.valueOf(badgeIdA2);
         form.setField(BADGE_ID_A2, badgeA2, badgeA2);
+        switchRecordForTracking.setEmployee2(badgeIdA2 + "");
 
         form.setField(IS_FULL_TIME_A2, formData.isFullTimeA2() ? YES : NO, formData.isFullTimeA2() ? YES : NO);
         form.setField(IS_FULL_TIME_UTIL_A2, formData.isFullTimeUtilA2() ? YES : NO, formData.isFullTimeUtilA2() ? YES : NO);
@@ -64,7 +77,7 @@ public class SwitchFormService {
         form.setField(SHIFT_START_END_TIME_A, formData.getShiftStartEndTimeA(), formData.getShiftStartEndTimeA());
 
         form.setField(IS_POKER_ROOM_A, formData.isPokerRoomA() ? YES : NO, formData.isPokerRoomA() ? YES : NO);
-        form.setField(IS_6AM_CRABS_A, formData.is6AmCrabsA() ? YES : NO, formData.is6AmCrabsA() ? YES : NO);
+        form.setField(IS_6AM_CRABS_A, formData.isSixAmCrabsA() ? YES : NO, formData.isSixAmCrabsA() ? YES : NO);
 
         form.setField(FIRST_LAST_NAME_B1, formData.getFirstLastNameB1(), formData.getFirstLastNameB1());
         String badgeB1 = String.valueOf(formData.getBadgeIdB1());
@@ -87,7 +100,7 @@ public class SwitchFormService {
         form.setField(SHIFT_START_END_TIME_B, formData.getShiftStartEndTimeB(), formData.getShiftStartEndTimeB());
 
         form.setField(IS_POKER_ROOM_B, formData.isPokerRoomB() ? YES : NO, formData.isPokerRoomB() ? YES : NO);
-        form.setField(IS_6AM_CRABS_B, formData.is6AmCrabsB() ? YES : NO, formData.is6AmCrabsB() ? YES : NO);
+        form.setField(IS_6AM_CRABS_B, formData.isSixAmCrabsB() ? YES : NO, formData.isSixAmCrabsB() ? YES : NO);
 
         form.setField(PHONE_NUM_A1, formData.getPhoneNumA1(), formData.getPhoneNumA1());
         form.setField(PHONE_NUM_A2, formData.getPhoneNumA2(), formData.getPhoneNumA2());
@@ -96,5 +109,10 @@ public class SwitchFormService {
         form.setField(PHONE_NUM_B1, formData.getPhoneNumB1(), formData.getPhoneNumB1());
         form.setField(PHONE_NUM_B2, formData.getPhoneNumB2(), formData.getPhoneNumB2());
         form.setField(PHONE_NUM_B3, formData.getPhoneNumB3(), formData.getPhoneNumB3());
+
+        return switchRecordForTracking;
+    }
+
+    public void saveNewRecordForTracking(SwitchRecord newSwitchRecordForTracking) {
     }
 }

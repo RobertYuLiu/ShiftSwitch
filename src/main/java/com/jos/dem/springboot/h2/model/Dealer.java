@@ -15,14 +15,21 @@ import javax.persistence.Id;
 @AllArgsConstructor
 public class Dealer {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int badgeNumber;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    private String badgeNumber;
+    private String lastName;
+    private String firstName;
+    private String seniority;
+    private String status;
+    private String startTimeCategory;
+    private boolean pkRoomDealer;
+    private String offDay;
 
-	private String lastname;
-	private String firstname;
-	private int seniority;
-	private String status;
-	private String startTimeCategory;
-
+    public Dealer(String badgeNumber, String firstName, String lastName) {
+        this.badgeNumber = badgeNumber;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 }

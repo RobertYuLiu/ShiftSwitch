@@ -13,6 +13,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 	
 	  @ExceptionHandler(MaxUploadSizeExceededException.class)
 	  public ResponseEntity<Response> handleMaxSizeException(MaxUploadSizeExceededException exc) {
-		return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new Response("File too large!"));
+		return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new Response("File too large!", "useless hahaha!!!"));
 	  }
 	}

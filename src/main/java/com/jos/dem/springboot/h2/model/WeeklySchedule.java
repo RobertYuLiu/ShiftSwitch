@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -15,28 +16,28 @@ public class WeeklySchedule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String scheduleId;
+    private int scheduleId;
 
-    public WeeklySchedule(int badgeId, String weekStartDate, String sundayShift, String mondayShift, String tuesdayShift, String wednesdayShift, String thursdayShift, String fridayShift, String saturdayShift) {
+    public WeeklySchedule(String badgeId, LocalDate startDate, String sunday, String monday, String tuesday, String wednesday, String thursday, String friday, String saturday) {
         this.badgeId = badgeId;
-        this.weekStartDate = weekStartDate;
-        this.sundayShift = sundayShift;
-        this.mondayShift = mondayShift;
-        this.tuesdayShift = tuesdayShift;
-        this.wednesdayShift = wednesdayShift;
-        this.thursdayShift = thursdayShift;
-        this.fridayShift = fridayShift;
-        this.saturdayShift = saturdayShift;
+        this.startDate = startDate;
+        this.sunday = sunday;
+        this.monday = monday;
+        this.tuesday = tuesday;
+        this.wednesday = wednesday;
+        this.thursday = thursday;
+        this.friday = friday;
+        this.saturday = saturday;
     }
 
-    private int badgeId;
-    private String weekStartDate;
-    private String sundayShift;
-    private String mondayShift;
-    private String tuesdayShift;
-    private String wednesdayShift;
-    private String thursdayShift;
-    private String fridayShift;
-    private String saturdayShift;
+    private String badgeId;
+    private LocalDate startDate;
+    private String sunday;
+    private String monday;
+    private String tuesday;
+    private String wednesday;
+    private String thursday;
+    private String friday;
+    private String saturday;
 
 }
